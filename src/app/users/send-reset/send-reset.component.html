@@ -1,0 +1,25 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center" [ngStyle.lt-md]="{'padding-top': '25%'}" [ngStyle.gt-sm]="{'padding-top': '5%'}">
+    <mat-card fxFlex.lt-md="98" fxFlex.gt-sm="30">
+      <mat-card-header>
+        <img mat-card-avatar src="../../assets/img/hermes-logo.png">
+        <mat-card-title class="text-primary"><i class="fas fa-user"></i>&nbsp;Reset Password</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="formReset" class="container" fxLayout="column" fxLayoutAlign="center center">
+          <mat-form-field>
+            <input type="email" email name="email" formControlName="email" placeholder="Email" aria-label="Email" matInput>
+            <mat-error *ngIf="!formReset.controls['email'].valid">
+              Please enter a valid email
+            </mat-error>
+          </mat-form-field>
+        <div *ngIf="!done" class="container mt-3" flexLayout="row" fxLayoutAlign="space-around center">
+            <button [disabled]="loading" type="submit" class="btn btn-primary btn-lg btn-block" (click)="go($event)" ><i class="fas fa-user"></i>&nbsp;Send Link</button>            
+          </div>
+        </form>   
+        <div *ngIf="done" class="container mt-3 alert alert-success" flexLayout="row" fxLayoutAlign="space-around center">
+            Notification sent.  Please check your email.            
+          </div>    
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

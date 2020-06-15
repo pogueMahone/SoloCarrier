@@ -1,0 +1,124 @@
+<div  fxLayout="row" fxLayoutAlign="space-around center" >  
+  <div fxFlex.gt-sm="50" fxFlex.lt-md="100">
+    <div class="container">
+      <div class="row text-center"><h5 class="mt-0 mb-1 font-weight-bold text-primary">Add New Item</h5></div>
+      <div class="container">
+        <div class="col-12 text-center">
+          <input accept="image/png, image/jpeg" type="file" #file placeholder="Choose file" (change)="uploadPhoto(file.files)" style="display:none;">
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="file.click()">Upload Photo</button>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="itemForm" class="container" >
+      
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input type="text" name="name" formControlName="name" placeholder="Name" aria-label="Name" matInput>
+          <mat-error *ngIf="!itemForm.controls['name'].valid">
+            Please enter a product name
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input type="text" name="name" formControlName="brand" placeholder="Brand" aria-label="Brand" matInput>
+          <mat-error *ngIf="!itemForm.controls['brand'].valid">
+            Please enter a product brand
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input type="text" name="category" formControlName="category" placeholder="Category" aria-label="Category" matInput>
+          <mat-error *ngIf="!itemForm.controls['category'].valid">
+            Please enter a product category
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-6">
+          <input type="number" name="size" formControlName="size" placeholder="Size" aria-label="Size" matInput>
+          <mat-error *ngIf="!itemForm.controls['size'].valid">
+            Please enter a product size
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-6">
+          <input type="text" name="sizeUOM" formControlName="sizeUOM" placeholder="Size Unit of Measure" aria-label="Size Unit of Measure" matInput>
+          <mat-error *ngIf="!itemForm.controls['sizeUOM'].valid">
+            Please enter a product size unit of measure
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input maxlength="200" required type="text" name="headline" formControlName="headline" placeholder="Headline" aria-label="headline" matInput>          
+          <mat-error *ngIf="!itemForm.controls['headline'].valid">Please enter a headline</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <textarea maxlength="500" matInput name="description" placeholder="Description" formControlName="description"></textarea>
+          <mat-error *ngIf="itemForm.controls['description'].hasError('maxlength')">Maximum 200 characters</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input readonly type="text" name="imageUrl" formControlName="imageUrl" placeholder="Image Url" aria-label="image Url" matInput>
+          <mat-error *ngIf="!itemForm.controls['imageUrl'].valid">
+            Please enter an image url
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input type="number" name="price" formControlName="price" placeholder="Price" aria-label="Price" matInput>
+          <mat-error *ngIf="!itemForm.controls['price'].valid">
+            Please enter a price
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input type="number" name="quantity" formControlName="quantity" placeholder="Quantity" aria-label="Quantity" matInput>
+          <mat-error *ngIf="!itemForm.controls['quantity'].valid">
+            Please enter a quantity
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input min="1" max="5" type="number" name="rating" formControlName="rating" placeholder="Rating" aria-label="rating" matInput>
+          <mat-error *ngIf="!itemForm.controls['rating'].valid">
+            Please enter a rating
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-12">
+          <input [value]="dateAvail" readonly  matInput [matDatepicker]="pickerStart" placeholder="date available" formControlName="available" name="available">
+          <mat-datepicker-toggle matSuffix [for]="pickerStart">
+              <i class="fas fa-calendar-alt"></i>
+          </mat-datepicker-toggle>
+          <mat-datepicker touchUi #pickerStart></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-20">
+          <span class="mr-10">
+            <mat-slide-toggle color="primary" name="isFavorite" formControlName="isFavorite">Favorite Item</mat-slide-toggle>
+          </span>
+          <span>
+            <mat-slide-toggle color="primary" name="active" formControlName="active">Active</mat-slide-toggle>
+          </span>
+        </div>
+      </div>     
+        <div class="row" >
+          <button type="submit" class="btn btn-primary btn-lg btn-block" (click)='save()'  color="primary"> <i class="fa fa-save"></i>&nbsp;Save</button>
+        </div>
+        
+      </form>
+  </div>
+</div>
+
+
+  

@@ -1,0 +1,189 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/* You can add global styles to this file, and also import other style files */
+.black-skin  {
+    background-color: #222 !important;
+    color: #fff !important;
+}
+.head{
+font-family: Geneva !important;
+font-weight: bolder !important;
+}
+.head-img {   
+    width: 50px;
+    height: 50px;    
+  }
+  .head-img-sm {   
+    width: 40px;
+    height: 40px;    
+  }
+.mat-sidenav  .mat-list-item {
+    color: #fff !important;
+}
+.carousel-multi-item .controls-top{
+    text-align: center !important;
+  }
+  .h-20{
+      height: 20px !important;
+  }
+// @media only screen and (max-width: 768px) {
+//     .carousel-multi-item .controls-top{
+//         display: none !important;
+//       }
+// }
+
+// .carousel-multi-item .controls-top {
+//     margin-bottom: 1.88rem;
+//     text-align: center;
+// }
+.carousel-item {
+    &.active, &.carousel-item-right, &.carousel-item-next {
+      display: flex !important;
+    }
+  }
+  .carousel-multi-item .controls-top .btn-floating {
+    background: #4285f4;
+}
+.btn-floating {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    width: 40px;
+    height: 40px;
+}
+.btn-floating i {
+    display: inline-block;
+    width: inherit;
+    color: #fff;
+    text-align: center;
+}
+.btn-floating i {
+    font-size: 1.25rem;
+    line-height: 40px;
+}
+.carousel-multi-item .carousel-indicators {
+    margin-bottom: -1em;
+}
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+}
+.carousel-multi-item .carousel-indicators .active {
+    width: 1.56rem;
+    max-width: 1.56rem;
+    height: 1.56rem;
+    background-color: #4285f4;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+}
+.carousel-multi-item .carousel-indicators li {
+    width: 1.25rem !important;
+    max-width: 1.25rem !important;;
+    height: 1.25rem !important;
+    margin-bottom: -3.75rem;
+    background-color: #4285f4;
+}
+.carousel .carousel-indicators li {   
+    cursor: pointer;
+    border-radius: 50%;
+}
+.carousel-indicators li {
+    box-sizing: content-box;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity .6s ease;
+}
+.nav-badge{
+    color: #3f51b5;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.rating-color{
+    color: #007bff;
+}
+.item-img{
+    max-width: 275px;
+    max-height: 275px;
+    margin: auto;
+}
+
+.item-img-sm{
+    max-width: 220px !important;
+    max-height: 220px !important;
+    margin: auto;
+}
+
+.mr-10{
+    margin-right: 10px;
+}
+.mb-20{
+    margin-bottom: 20px;
+}
+.ml-auto{
+    margin-left: auto;
+}
+.mb-16{
+    margin-bottom: 16px;
+}
+.pr-1{
+    padding-right: 1px !important;
+}
+.p-0{
+    padding: 0 !important;
+}
+.p-5{
+    padding: 5px !important;
+}
+.pl-15{
+    padding-left: 15px !important;
+}
+.font-90{
+    font-size: 90%;
+}
+.font-75{
+    font-size: 75%;
+}
+.font-65{
+    font-size: 65%;
+}
+.font-50{
+    font-size: 50%;
+}
+

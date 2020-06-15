@@ -1,0 +1,133 @@
+<br>
+<div class="container" *ngIf="item">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="product-image">
+        <div class="view hm-zoom z-depth-2" style="cursor: pointer">
+          <img [src]="item.imageUrl" [alt]="item.name" ngClass.gt-sm="item-img" ngClass.lt-md="item-img-sm" class="img-fluid rounded">
+        </div>
+        <div style="margin-top:15px">
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Price</h6>
+              </div>
+              <span class="text-muted" >{{item.price | currency}}
+                <span class="small">inc tax</span>
+              </span>
+            </li>   
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">Rating</h6>
+              </div>
+              <app-ratings [rating]="item.rating" readonly="true"></app-ratings>
+            </li>         
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="product-detail">
+        <!--<h5 class="product-head">Details</h5>-->
+        <table class="table" cellspacing="0" style="max-height: 28px">
+          <tbody>
+            <tr> 
+              <td colspan="2" *ngIf="item.quantity === 0">
+                <div class="alert alert-info">
+                  {{item.name}} is temporarily out of stock.  We will have it restocked shortly.
+                </div>
+              </td>             
+              <td colspan="2" *ngIf="item.quantity > 0">
+                <div class="w-100 text-right">
+                  <span class="mat-error" style="font-size: 75%;margin-right: 20px;" *ngIf="selectedQuantity > item.quantity || selectedQuantity < 1">Quantity must be between 1 and {{item.quantity}}</span>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between center" >
+                  <div fxFlex="100" style="text-align: right;">                    
+                    <button [disabled]="selectedQuantity > item.quantity || selectedQuantity < 1" class="btn btn-success" (click)="addToCart(item)"><i class="fas fa-cart-plus"></i>&nbsp;Add<span fxShow="true" fxHide.lt-md> to Cart</span></button>
+                  </div>
+                </div>                
+              </td>
+            </tr>   
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{item.name}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Brand</th>
+            <!-- <td>{{item.brand}}</td> -->
+            <td>
+              <a class="btn btn-info" [routerLink]="['/catalogue']" [queryParams]="{ brand: item.brand }"><i class="far fa-list-alt"></i>&nbsp;{{item.brand}}</a>
+            </td>
+            </tr>
+            <tr *ngIf="item.size">
+              <th scope="row">Size</th>
+            <td>{{item.size}}&nbsp;{{item.sizeUOM}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Description</th>
+              <td>
+                <div class="mb-2">{{item.headline}}</div>
+                
+                {{item.description}}
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Category</th>
+              <td>
+                <a class="btn btn-info" [routerLink]="['/catalogue']" [queryParams]="{ category: item.category }"><i class="far fa-list-alt"></i>&nbsp;{{item.category}}</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Available</th>
+              <td>{{item.quantity}}</td>
+            </tr> 
+            <tr>
+              <th scope="row">Quantity</th>
+              <td>   
+                <input style="width: 75px;" [(ngModel)]="selectedQuantity" type="number" max="{{item.quantity}}" min="1" class="form-control" placeholder="Quantity">            
+                
+                
+              </td>
+            </tr>
+            <tr>
+              <th class="text-muted" scope="row">Total</th>              
+              <td>
+                <span class="text-muted">{{(item.price * selectedQuantity) | currency}}<span class="small">&nbsp;inc tax</span></span>                
+              </td>
+            </tr>  
+            <tr>
+              <td colspan="2" *ngIf="item.quantity === 0">
+                <div class="alert alert-info">
+                  {{item.name}} is temporarily out of stock.  We will have it restocked shortly.
+                </div>
+              </td>  
+              <td colspan="2" *ngIf="item.quantity > 0">
+                <div class="w-100 text-right">
+                  <span class="mat-error" style="font-size: 75%;margin-right: 20px;" *ngIf="selectedQuantity > item.quantity || selectedQuantity < 1">Quantity must be between 1 and {{item.quantity}}</span>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between center" >
+                  
+                  <div fxFlex="50">
+                    <a [routerLink]="returnUrl" class="btn btn-info"><i class="fas fa-arrow-circle-left"></i>&nbsp;<span fxShow="true" fxHide.lt-md>Back</span></a>
+                  </div>
+                  <div fxFlex="50" style="text-align: right;">
+                    
+                <button [disabled]="selectedQuantity > item.quantity || selectedQuantity < 1" class="btn btn-success" (click)="addToCart(item)"><i class="fas fa-cart-plus"></i>&nbsp;Add<span fxShow="true" fxHide.lt-md> to Cart</span></button>
+                  </div>
+                </div>
+               
+                
+              </td>
+            </tr>   
+            <tr>
+              <td *ngIf="(isAdmin$ | async)" colspan="2" style="text-align: right;padding-right:10px;">                
+                <a class="btn btn-primary" [routerLink]="['/add-item']" [queryParams]="{ id: item.id }"><i class="fas fa-edit"></i>&nbsp;Edit Item</a>
+              </td>
+            </tr>        
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

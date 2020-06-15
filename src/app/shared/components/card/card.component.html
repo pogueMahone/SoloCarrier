@@ -1,0 +1,56 @@
+<div >
+  <div class="item">
+    <div class=" mb-r">
+      <div class="card card-cascade wider">
+          <!--Card image-->
+          <a [routerLink]="['/catalogue/item/', item.id]" [queryParams]="{ returnUrl: returnUrl}" routerLinkActive="router-link-active">
+            <div class="view overlay hm-white-slight">
+              <img [src]="item.imageUrl" class="img-fluid"  ngClass.gt-sm="item-img" ngClass.lt-md="item-img-sm">
+              <a>
+                <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+              </a>
+            </div>
+          </a>
+          <!--/.Card image-->
+          <!--Card content-->
+          <div class="card-body text-center no-padding">
+            <!--Category & Title-->
+            <a class="text-muted">
+              <h5>{{ item.brand }}</h5>
+            </a>
+            <p class="card-title">
+              <strong>
+                <a [routerLink]="['/catalogue/item/', item.id]" [queryParams]="{ returnUrl: returnUrl}" routerLinkActive="router-link-active">{{
+                    item.name }}</a>
+              </strong>
+            </p>
+            <!--Description-->
+            <p fxShow="true" fxHide.lt-md class="card-text">{{ item.headline }}
+            </p>
+            <!--Card footer-->
+            <div class="card-footer">
+              <span class="left">{{ item.price | currency }}<span class="small">&nbsp;inc tax</span></span>
+              <span class="right">
+                <!-- <a placement="top" mdbTooltip="Add to Wishlist" container="body" >
+                  <i class="fa fa-heart"></i>
+                </a> -->
+                <!-- <a placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart()">
+                  <i class="fa fa-shopping-cart"></i>
+                </a>    -->
+                <button [disabled]="loading" *ngIf="item.inventory > 0" mat-icon-button color="primary" placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart()">
+                  <i class="fa fa-shopping-cart"></i>
+                </button> 
+                <button *ngIf="item.inventory < 1" mat-icon-button color="warn" placement="top" mdbTooltip="You have added our total inventory for this item to your cart." container="body" >
+                  <i class="fa fa-shopping-cart"></i>
+                </button>                   
+              </span>
+            </div>
+
+          </div>
+          <!--/.Card content-->
+
+        </div>
+  <!--/.Card-->
+</div>
+</div>
+</div>

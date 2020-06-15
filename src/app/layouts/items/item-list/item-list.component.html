@@ -1,0 +1,62 @@
+<br>
+<div class="container" *ngIf="itemList && itemList.length>0">  
+  <div class="row">
+    <div class="col-md-2">
+      <div fxLayout.gt-sm="column" fxLayout.lt-md="row" fxLayoutAlign="space-around center" >
+        <div fxFlex.lt-md="30" fxFlex.gt-sm="100" class="mb-2 font-75">
+          <button *ngIf="selectedCategory.length>0 || selectedBrand.length > 0" class="btn btn-info btn-sm" (click)="clear()"><i class="fas fa-times-circle"></i>&nbsp;Clear<span fxShow="true" fxHide.lt-md>&nbsp;Filter</span></button>
+        </div>
+        <div fxFlex.lt-md="70" fxFlex.gt-sm="100">
+          <mat-form-field>
+            <mat-label>By Category:</mat-label>
+            <mat-select [(ngModel)]="selectedCategory" (selectionChange)="filterItems($event)">
+              <mat-option value="">
+                All Categories
+              </mat-option>
+              <mat-option [value]="f" *ngFor="let f of filterList">
+                {{f}}
+              </mat-option>          
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>By Brand:</mat-label>
+            <mat-select [(ngModel)]="selectedBrand" (selectionChange)="filterItems($event)">
+              <mat-option value="">
+                All Brands
+              </mat-option>
+              <mat-option [value]="b" *ngFor="let b of brandList">
+                {{b}}
+              </mat-option>          
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+     
+     
+    </div>
+    <div class="col-md-10">
+      <div class="container">   
+        <div class="row" >
+          <!-- List of Products -->
+          <div class="col-sm-4 mb-2" *ngFor="let item of itemList; let i = index">
+            <app-card [item]="item"></app-card>
+         
+          </div>
+        </div>
+        <div class="row" [hidden]="filter">
+          <div class="col-12 mb-2">
+            <span class="text-center">
+              
+              <mat-paginator [length]="pageCount" color="primary"
+               [pageSize]="pageSize"
+               [pageIndex]="pageIndex"
+               hidePageSize="true"
+               (page)="page($event)">
+              </mat-paginator>
+            </span>        
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

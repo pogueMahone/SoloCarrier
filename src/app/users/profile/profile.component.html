@@ -1,0 +1,82 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center" [ngStyle.lt-md]="{'padding-top': '25%'}" [ngStyle.gt-sm]="{'padding-top': '5%'}">
+    <mat-card fxFlex.lt-md="98" fxFlex.gt-sm="30">
+      <mat-card-header>
+        <img mat-card-avatar src="../../assets/img/hermes-logo.png">
+        <mat-card-title class="text-primary text-center"><i class="fas fa-user"></i>&nbsp;Profile</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        
+        <form [formGroup]="userForm" class="container mt-2">
+            <div class="row" *ngIf="isAdmin$ | async; else readonly">
+                <mat-form-field class="col-12">
+                  <input type="text" name="email" formControlName="email" placeholder="Email" aria-label="Email" matInput>
+                  <mat-error *ngIf="!userForm.controls['email'].valid">
+                    Please enter your email
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <ng-template #readonly>
+                <div class="row">
+                  <div class="alert alert-light text-left w-100 pl-15">
+                    <div class="font-90 text-primary"><i class="fas fa-envelope"></i>&nbsp;Email:</div>
+                    <div>{{email}}</div>                  
+                  </div>
+                </div>
+              </ng-template>              
+              <div class="row ">
+                  <div class="col-12 text-primary "><i class="fas fa-phone-square-alt"></i>&nbsp;Phone</div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-12">
+                  <mat-form-field>
+                    <mat-label>Mobile Provider:</mat-label>
+                    <mat-select name="provider" formControlName="provider" >
+                      <mat-option value="-1">
+                        Please Select
+                      </mat-option>
+                      <mat-option [value]="p.id" *ngFor="let p of providers">
+                        {{p.name}}
+                      </mat-option>          
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <mat-form-field ngClass.gt-sm="col-12" ngClass.lt-md="col-12">
+                  <input placeholder="Cell Phone Number"  type="number" name="phone" formControlName="phone" matInput>
+                  <mat-error *ngIf="!userForm.controls['phone'].valid">
+                    Invalid cell phone number
+                  </mat-error>
+              </mat-form-field>
+                <!-- <mat-form-field class="pr-1" ngClass.gt-sm="col-3" ngClass.lt-md="col-3">
+                    <input placeholder="###" type="number" name="phone1" formControlName="phone1" matInput>
+                    <mat-error *ngIf="!userForm.controls['phone1'].valid">
+                      First 3 numbers only
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="pr-1" ngClass.gt-sm="col-3" ngClass.lt-md="col-3">
+                    <input placeholder="###"  type="number" name="phone2" formControlName="phone2" matInput>
+                    <mat-error *ngIf="!userForm.controls['phone2'].valid">
+                        Second 3 numbers only
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="pr-1" ngClass.gt-sm="col-4" ngClass.lt-md="col-4">
+                    <input placeholder="####"  type="number" name="phone3" formControlName="phone3" matInput>
+                    <mat-error *ngIf="!userForm.controls['phone3'].valid">
+                      Last 4 numbers only
+                    </mat-error>
+                </mat-form-field> -->
+              </div>
+              <div class="row pt-2">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="save($event)" ><i class="fas fa-user"></i>&nbsp;Save</button>
+                  </div>
+              </div>
+         </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+        
+        
+        
+       

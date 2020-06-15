@@ -1,0 +1,39 @@
+<h5 class="mb-1 font-75 text-primary text-center" mat-dialog-title>Message {{orderData.name}}</h5>
+<div mat-dialog-content>
+ <form [formGroup]="msgForm" class="container">
+  <div class="row alert alert-secondary" *ngIf="orderData.notes">
+    <div class="font-50 w-100">Delivery note:</div>
+    <div class="font-75 w-100">{{orderData.notes}}</div>
+    
+  </div>
+  <div class="row">
+    <mat-form-field class="col-12">
+      <input maxlength="80" type="text" name="subject" formControlName="subject" placeholder="Subject" aria-label="subject" matInput>
+      <mat-error *ngIf="msgForm.controls['subject'].hasError('required')">
+        Please enter subject
+      </mat-error>
+      <mat-error *ngIf="msgForm.controls['subject'].hasError('maxlength')">Maximum 80 characters</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row">
+      <mat-form-field ngClass.gt-sm="col-12" ngClass.lt-md="col-12">
+        <textarea maxlength="350" matInput name="msg" placeholder="Message" formControlName="msg"></textarea>
+        <mat-error *ngIf="msgForm.controls['msg'].hasError('maxlength')">Maximum 350 characters</mat-error>
+        <mat-error *ngIf="msgForm.controls['msg'].hasError('required')">
+          Please enter message
+        </mat-error>
+      </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-12">      
+      <span>
+        <mat-slide-toggle color="primary" name="delivered" formControlName="delivered">Delivered</mat-slide-toggle>
+      </span>
+    </div>
+  </div>     
+ </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-evenly center">
+    <button class="btn btn-sm btn-danger mr-1" (click)="close()"><i class="fas fa-window-close"></i>&nbsp;Close</button>
+    <button class="btn btn-sm btn-success" (click)="send()"><i class="fas fa-envelope-square"></i>&nbsp;Send</button>
+  </div>

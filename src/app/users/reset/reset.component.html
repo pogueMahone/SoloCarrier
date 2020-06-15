@@ -1,0 +1,36 @@
+<div class="container" fxLayout="row" fxLayoutAlign="center center" [ngStyle.lt-md]="{'padding-top': '25%'}" [ngStyle.gt-sm]="{'padding-top': '5%'}">
+    <mat-card fxFlex.lt-md="98" fxFlex.gt-sm="30">
+      <mat-card-header>
+        <img mat-card-avatar src="../../assets/img/hermes-logo.png">
+        <mat-card-title class="text-primary"><i class="fas fa-user"></i>&nbsp;Password Reset</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form *ngIf="!done" [formGroup]="formReset" class="container" fxLayout="column" fxLayoutAlign="center center">
+          
+          <mat-form-field>
+            <input type="password" name="password" formControlName="password" placeholder="Password" aria-label="Password" matInput>
+            <mat-error *ngIf="formReset.controls['password'].hasError('minlength')">
+              Password must be at least 5 charcters
+            </mat-error>
+            <mat-error *ngIf="formReset.controls['password'].hasError('maxlength')">
+              Max 20 characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="password" name="confirm" formControlName="confirm" placeholder="Confirm Password" aria-label="Confirm Password" matInput>         
+            <mat-error *ngIf="formReset.controls['confirm'].hasError('mismatch')">
+              Passwords do not match
+            </mat-error>
+          </mat-form-field>         
+        <div class="container mt-3" flexLayout="row" fxLayoutAlign="space-around center">
+            <button [disabled]="loading" type="submit" class="btn btn-primary btn-lg btn-block" (click)="go($event)" ><i class="fas fa-user"></i>&nbsp;Reset</button>            
+          </div>
+        </form>
+        <div class="alert alert-success m-2" *ngIf="done">
+           Your password has been updated.  Please login.<br><br>
+           <a class="btn btn-primary btn-lg btn-block" [routerLink]='["/login"]'><i class="fa fa-sign-in-alt"></i>&nbsp;Login</a>
+          </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

@@ -1,0 +1,6 @@
+<span *ngIf="readonly">  
+    <i class="fa-star rating-color" [ngClass]="(r)?'fas':'far'" *ngFor="let r of ratings; let i = index"></i>
+  </span>
+  <span *ngIf="!readonly">
+    <i (click)="toggle(i)" [ngClass]="(r)?'fas':'far'" class="pointer fa-star rating-color" *ngFor="let r of ratings; let i = index"></i>
+</span>

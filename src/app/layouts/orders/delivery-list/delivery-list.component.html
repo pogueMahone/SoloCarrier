@@ -1,0 +1,55 @@
+<h5 class="text-center mt-0 mb-1 font-weight-bold text-primary">Deliveries</h5>
+<div class="text-center mb-1">
+  <div class="btn-group btn-group-sm">
+      <label (click)='toggle()' size="sm" mdbBtn color="light-blue" [(ngModel)]="complete" mdbRadio="0" mdbWavesEffect>
+          Show All
+      </label>
+      <label (click)='toggle()' size="sm" mdbBtn color="light-blue" [(ngModel)]="complete" mdbRadio="1" mdbWavesEffect>
+        Scheduled
+      </label>
+      <label (click)='toggle()' size="sm" mdbBtn color="light-blue" [(ngModel)]="complete" mdbRadio="2" mdbWavesEffect>
+          Delivered
+      </label>
+      </div>
+</div>
+<div class="container" *ngIf="!orders || orders.length===0">
+  <div class="alert alert-secondary text-center mt-5" role="alert">
+      No orders <span *ngIf="complete === '0'">found</span><span *ngIf="complete === '1'">scheduled</span><span *ngIf="complete === '2'">delivered</span> &nbsp;<i class="fas fa-frown"></i>
+    </div>
+  </div>
+<div class="table-responsive" *ngIf="orders && orders.length > 0">
+    <table class="table table-striped text-center" >
+      <thead>
+        <tr>
+          <th scope="col">Created</th>
+          <th scope="col">Delivery</th>
+          <th scope="col">Time</th>
+          <th scope="col">Post Code</th>
+          <th scope="col">Items</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="pointer" (click)="view(i)" *ngFor="let order of orders; let i = index">
+          <td>{{order.created | date: 'mediumDate' }}</td>
+          <td>{{order.detail.delivery.date | date: 'mediumDate' }}</td>
+          <td>{{formatTOD(order.detail.delivery.tod)}}</td>
+          <td>{{order.detail.address.postcode}}</td>
+          <td>{{order.detail.items.length}}</td>         
+        </tr>       
+      </tbody>
+    </table>
+  </div>
+  <div class="container-fluid" *ngIf="orders && orders.length"> 
+    <div class="row">
+        <div class="col-12 mb-2">
+            <span class="text-center">
+            <mat-paginator [length]="pageCount" color="primary"
+                [pageSize]="pageSize"
+                [pageIndex]="pageIndex"
+                hidePageSize="true"
+                (page)="page($event)">
+                </mat-paginator>
+              </span>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,99 @@
+<br>
+<div *ngIf="config" fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" >
+    <div fxFlex="75">
+        <div class="container-fluid"> 
+            <ul class="list-unstyled" *ngIf="inventoryItems && inventoryItems.length > 0">
+                <li style="margin-bottom: 10px;" class="media" *ngFor="let item of cartItems; let i = index">
+                    <a [routerLink]="['/catalogue/item/', item.id]">
+                        <img ngClass.gt-sm="cart-thumbnail" ngClass.lt-md="cart-thumbnail-sm" class="d-flex align-self-center mr-3 img-thumbnail rounded-circle hoverable" [src]="item.data.imageUrl" alt="item.data.name">
+                    </a>
+                  <div class="media-body item-bg" ngClass.lt-md="f-75">
+                    <h5 class="mt-0 mb-1 font-weight-bold text-primary">{{item.data.name}}</h5>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" >
+                        <div fxFlex="90">
+                            <ul class="list-group">
+                                <li class="list-group-item" ngClass.lt-md="list-group-item-sm" ngClass.gt-sm="list-group-item-lg">{{item.data.brand}}</li>
+                                <li class="list-group-item" ngClass.lt-md="list-group-item-sm" ngClass.gt-sm="list-group-item-lg">
+                                    <input (ngModelChange)="quantityChange($event, i)" ngClass.lt-md="q-size-sm" ngClass.gt-sm="q-size-lg" [(ngModel)]="item.quantity" type="number" max="{{item.inventory}}" min="1" class="form-control" placeholder="Quantity">
+                                    <span class="mr-1 ml-1" *ngIf="item.quantity === null || item.quantity===0"><button (click)="delete(i)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i><span fxShow="true" fxHide.lt-md> &nbsp;Remove?</span></button> </span>
+                                    <span ngStyle.lt-md="display:block;" class="text-info">{{item.data.headline}}</span>
+                                </li>
+                                <li class="list-group-item" ngClass.lt-md="list-group-item-sm" ngClass.gt-sm="list-group-item-lg">{{(item.quantity * item.data.price) | currency}}<span class="font-65">&nbsp;@ {{item.data.price | currency}} ea</span></li>  
+                                <li class="list-group-item" ngClass.lt-md="list-group-item-sm" ngClass.gt-sm="list-group-item-lg" *ngIf="!checkInventory(item.id, item.quantity)">
+                                    <div *ngIf="!item.valid && item.inventory > 0" class="alert alert-warning">
+                                        We're sorry, your requested quantity for this item is not available.  We only have {{item.inventory}} in stock.  Would you like to
+                                        update your order to include {{item.inventory}}?
+                                        <button (click)="updateOrder(i)" class="btn btn-success btn-sm">Yes</button> 
+                                        <div>
+                                            <a (click)='delete(i)'><i class="fas fa-trash"></i>&nbsp;Remove item from order</a>
+                                        </div>
+                                    </div> 
+                                    
+                                    <div *ngIf="!item.valid && item.inventory === 0" class="alert alert-warning">
+                                        We're sorry, this item is temporarily out of stock.  We will have it restocked shortly.                                        
+                                        <div>
+                                            <a (click)='delete(i)'><i class="fas fa-trash"></i>&nbsp;Remove item from order</a>
+                                        </div>
+                                    </div> 
+                                                                      
+                                    <!-- <div *ngIf="(q - item.quantity) < 0" class="alert alert-warning">
+                                        We're sorry, your requested quantity for this item is no longer available.  We only have {{getInventory(item.id)}} in stock.  Would you like to
+                                        update your order to include {{q}}?
+                                        <button (click)="updateOrder(item.id)" class="btn btn-success btn-sm">Yes</button> 
+                                        <div>
+                                            <a (click)='delete(i)'><i class="fas fa-trash"></i>&nbsp;Remove item from order</a>
+                                        </div>
+                                    </div>  -->
+                                    
+                                </li>
+                                                         
+                              </ul>
+                        </div>
+                        <div fxFlex="10" class="text-right"><a (click)='delete(i)'><i class="fas fa-trash"></i></a></div>
+                    </div>
+                  <!--  <div class="content-fluid">
+                        <div class="row">
+                            <div class="col-7">                        
+                                <ul class="list-group">
+                                    <li class="list-group-item">{{item.data.brand}}</li>
+                                    <li class="list-group-item"><span class="text-dark">Quantity&nbsp;</span> {{item.quantity}}</li>
+                                    <li class="list-group-item">{{(item.quantity * item.data.price) | currency}}</li>                            
+                                  </ul>
+                            </div>
+                            <div class="col-5 align-middle">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    </div>-->
+                  </div>
+                </li>
+            </ul>  
+        </div>
+    </div>
+    <div fxFlex="25">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-success" >
+                        <div>Total: {{total | currency}}&nbsp;<span class="small">inc tax</span></div>
+                        
+                        <div *ngIf="total < config.minOrderAmount" class="text-dark mt-2 font-75 w-100 text-center">* Min {{config.minOrderAmount | currency}} for delivery.</div>
+                        <div class="text-dark mt-2 font-75">* All applicable taxes and deposits are included.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-16">
+                <div class="col-12">
+                    <a [routerLink]="['/catalogue']" class="btn btn-primary btn-lg btn-block">Continue Shopping</a>
+                </div>
+            </div>
+            <div class="row mb-16" *ngIf="inventoryItems && inventoryItems.length > 0 && total > config.minOrderAmount">
+                <div class="col-12">
+                    <a *ngIf="total>0 && cartValid | async" [routerLink]="['/checkout']" class="btn btn-success btn-lg btn-block">Checkout</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

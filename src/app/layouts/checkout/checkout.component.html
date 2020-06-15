@@ -1,0 +1,119 @@
+
+<div *ngIf="config" fxLayout="row" fxLayoutAlign="space-around center" >
+    <div fxFlex.gt-sm="35" fxFlex.lt-md="95">
+        <h5 class="text-center mt-0 mb-1 font-weight-bold text-primary">Delivery Information</h5>
+<form [formGroup]="addressForm" class="container" >
+  <div class="row" *ngIf="config.blockOrders">
+    <div class="col-12 text-center" >
+      <div class="alert alert-warning">
+        Solo Carrier is not accepting new orders at this time due to a backlog of deliveries.  Solo Carrier will be accepting new orders shortly!
+      </div>
+   </div>
+  </div>
+    <div class="row">
+        <mat-form-field class="col-12">
+          <input type="text" name="name" formControlName="name" placeholder="Contact Name" aria-label="Contact Name" matInput>
+          <mat-error *ngIf="!addressForm.controls['name'].valid">
+            Please enter a Contact Name
+          </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-12">
+        <input type="text" name="streetAddress1" formControlName="streetAddress1" placeholder="Street Address" aria-label="Name" matInput>
+        <mat-error *ngIf="!addressForm.controls['streetAddress1'].valid">
+          Please enter your street address
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-12">
+        <input type="text" name="streetAddress2" formControlName="streetAddress2" placeholder="Apt / Suite / Other" aria-label="Apt / Suite / Other" matInput>
+     <!--   <mat-error *ngIf="!addressForm.controls['streetAddress2'].valid">
+          Please enter a product brand
+        </mat-error>-->
+      </mat-form-field>
+    </div>
+    <div class="row">
+        <mat-form-field class="col-10">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city" (selectionChange)="citySelect()">
+              <mat-option *ngFor="let city of cities; let i = index" [value]="i">{{city.value}}</mat-option>    
+             
+            </mat-select>
+            <mat-error *ngIf="addressForm.controls['city'].hasError('required')">Please choose city</mat-error>            
+          </mat-form-field>
+          <span style="padding-top:22px;" class="col-2 font-weight-bold">&nbsp;BC</span>
+    </div>
+    <div class="row">
+      <mat-form-field class="col-7">
+        <input type="text" name="postcode" formControlName="postcode" placeholder="Post Code" aria-label="Post Code" matInput>
+        
+        <mat-error *ngIf="addressForm.controls['postcode'].hasError('required')">Post Code is required</mat-error>
+        <mat-error *ngIf="addressForm.controls['postcode'].hasError('pattern')">Invalid Post Code</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+  <form [formGroup]="deliveryForm" class="container" >
+    <div class="row">
+        <mat-form-field class="col-6">
+            <input (dateChange)="dateChange($event)" readonly [min]="minDeliveryDate" [max]="maxDeliveryDate"  matInput [matDatepicker]="pickerStart" placeholder="Delivery Date" formControlName="deliveryDate" name="deliveryDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerStart">
+                <i class="fas fa-calendar-alt"></i>
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #pickerStart></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="col-6">
+            <mat-label>Time of day</mat-label>
+            <mat-select formControlName="timeofday" required>
+              <mat-option [disabled]="selectedTODSwitch[0]" value="0">Morning</mat-option>    
+              <mat-option [disabled]="selectedTODSwitch[1]" value="1">Afternoon</mat-option>  
+              <mat-option [disabled]="selectedTODSwitch[2]" value="2">Evening</mat-option>
+            </mat-select>           
+          </mat-form-field>
+    </div>
+    <div class="row" *ngIf="error.quantity">
+      <div class="col-12 alert alert-warning">
+        We're sorry.  One of the items in your order is temporarily out of stock.  You are being
+        redirected back to your shopping cart...
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+          <div class="container-fluid alert alert-success" style="padding-top: 3px;padding-bottom: 3px;">
+            <div class="row">
+              <div class="col-4 text-right">Delivery:</div>
+              <div *ngIf="addressForm.controls['city'].value!==null" class="col-6 text-left">
+                <span *ngIf="city.key > 0">{{city.key | currency}}</span>
+                <span *ngIf="city.key == 0">Free!</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 text-right">Total:</div>
+              <div class="col-6 text-left">
+                {{total | currency}}<span class="small">&nbsp;inc tax</span>                
+              </div>
+            </div>
+            <div class="row text-center text-dark mt-2"><div class="col-12 font-75">* All applicable taxes and deposits are included.</div></div>
+          </div>
+        </div>
+    </div>
+      <div class="row">
+          <div class="col-12 text-center" *ngIf="!config.blockOrders">
+             <button type="button" [disabled]="!addressForm.valid || !deliveryForm.valid || redirect" class="btn btn-success btn-lg btn-block" (click)='saveOrder()'>
+                Pay Now&nbsp;<i class="fab fa-stripe"></i>
+              </button> 
+          </div>         
+          <!-- <div class="col-12 text-center" *ngIf="config.blockOrders">
+            <div class="alert alert-warning">
+              Solo Carrier is not accepting new orders at this time due to a backlog of deliveries.  Solo Carrier will be accepting new orders shortly!
+            </div>
+         </div> -->
+        <!--<button type="submit" class="btn btn-primary btn-lg btn-block" (click)='save()'  color="primary"> <i class="fa fa-save"></i>&nbsp;Save</button>-->
+      </div>
+      
+    </form>
+</div>
+</div>
+
+    

@@ -1,0 +1,89 @@
+<div fxLayout="row" fxLayoutAlign="space-around center" >
+    <div fxFlex.gt-sm="60%" fxFlex.lt-md="95%">
+        <div class="card" *ngIf="order">
+            <div class="card-header">
+                <div fxShow="true" fxHide.lt-md class="container-fluid p-0">
+                    <div class="row font-75 text-center">
+                        <div class="col-4 font-weight-bold">
+                            Order Placed
+                        </div>
+                        <div class="col-4 font-weight-bold ">
+                            Total
+                        </div>                           
+                        <div class="col-4 font-weight-bold ">
+                            Contact
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            {{order.created | date: 'mediumDate'}}
+                        </div>
+                        <div class="col-4">
+                            {{total | currency}}
+                        </div>
+                        
+                        <div class="col-4">
+                            {{order.detail.delivery.contact}}
+                        </div>
+                    </div>
+                </div> 
+                <div fxShow="true" fxHide.gt-sm class="container-fluid p-0">
+                    <div class="row font-75">
+                        <div class="col-5 font-weight-bold">Order Placed</div>
+                        <div class="col-7">{{order.created | date: 'mediumDate'}}</div>
+                    </div>
+                    <div class="row font-75">
+                        <div class="col-5 font-weight-bold">Total</div>
+                        <div class="col-7">{{total | currency}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-5">                    
+                <h5 class="card-title text-center" *ngIf="order.complete">
+                    <i class="fas fa-motorcycle"></i>&nbsp;Delivered on {{order.detail.delivery.date | date: 'medium' : 'UTC - utcOS'}}
+                </h5>                    
+                <h5 class="card-title text-center" *ngIf="!order.complete">                        
+                    <i class="fas fa-motorcycle"></i>&nbsp;Arriving <span class="font-75">in the {{getTOD()}} of </span> {{order.detail.delivery.date | date: 'mediumDate'}} 
+                </h5> 
+                <div class="card-text">
+                    <div class="container-fluid p-0" >  
+                        <ul class="list-unstyled" *ngIf="items && items.length > 0">
+                            <li style="margin-bottom: 10px;" class="media" *ngFor="let item of items; let i = index">
+                                <img ngClass.gt-sm="cart-thumbnail" ngClass.lt-md="cart-thumbnail-sm" class="d-flex align-self-center mr-2 img-thumbnail rounded-circle hoverable" [src]="item.imageUrl" alt="item.name">
+                            <div class="media-body item-bg">
+                                <h5 class="mt-0 mb-1 font-weight-bold text-primary">{{item.name}}</h5>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" >
+                                    <div fxFlex="90">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">{{item.brand}}</li>
+                                            <li class="list-group-item"><span class="text-dark"><strong>{{getQuantity(item.id)}} -</strong> {{item.headline}}</span></li>
+                                            <li class="list-group-item"><span class="mr-2 text-dark">{{getSubtotal(item.id) | currency}}</span><span class="font-65">@ {{getPrice(item.id) | currency}} ea</span></li>  
+                                        
+                                                                    
+                                        </ul>
+                                        </div>                                    
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>  
+                            <div class="alert alert-info text-center" *ngIf="order.detail.delivery.charge > 0">
+                                Delivery Charge: {{order.detail.delivery.charge | currency}}
+                            </div>
+                         </div> 
+                    
+                </div>                  
+            </div>
+            <div class="card-footer text-center">
+                <h5 class="font-weight-bold">
+                    Address
+                </h5>
+                {{order.detail.address.streetAddress1}}, <span *ngIf="order.detail.address.streetAddress2">{{order.detail.address.streetAddress2}},</span> {{order.detail.address.city}},
+                      {{order.detail.address.postcode | uppercase}}
+            </div>
+         </div>
+         <div class="text-center mt-2">
+            <button (click)="back()" class="btn btn-info"><i class="fas fa-arrow-circle-left"></i>&nbsp;Back to List</button>
+        </div> 
+    </div>
+</div>
+
