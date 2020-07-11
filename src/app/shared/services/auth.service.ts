@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, BehaviorSubject } from "rxjs";
+import {  BehaviorSubject } from "rxjs";
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
@@ -24,13 +24,7 @@ export class AuthService implements OnDestroy {
     this.user = JSON.parse(localStorage.getItem('currentUser')) || null;    
     this.loggedIn = new BehaviorSubject<boolean>(this.user ? true : false);    
     this._isAdmin =  new BehaviorSubject<boolean>((this.user && this.user.admin)? true: false);
-    // this.userObs = aFAuth.authState;
-    // this.userObs.subscribe(u => {
-    //   if(u){
-    //     this.user = u;    
-    //     this.loggedIn.next(true);  
-    //   }
-    // });    
+   
   }
 
   login(email: string, password: string) {    

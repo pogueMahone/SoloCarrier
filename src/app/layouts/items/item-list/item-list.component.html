@@ -1,13 +1,10 @@
-<br>
-<div class="container" *ngIf="itemList && itemList.length>0">  
+
+<div class="container-fluid" *ngIf="itemList && itemList.length>0">  
   <div class="row">
-    <div class="col-md-2">
-      <div fxLayout.gt-sm="column" fxLayout.lt-md="row" fxLayoutAlign="space-around center" >
-        <div fxFlex.lt-md="30" fxFlex.gt-sm="100" class="mb-2 font-75">
-          <button *ngIf="selectedCategory.length>0 || selectedBrand.length > 0" class="btn btn-info btn-sm" (click)="clear()"><i class="fas fa-times-circle"></i>&nbsp;Clear<span fxShow="true" fxHide.lt-md>&nbsp;Filter</span></button>
-        </div>
-        <div fxFlex.lt-md="70" fxFlex.gt-sm="100">
-          <mat-form-field>
+    <div class="col-md-3">
+      <div fxLayout.gt-sm="column" fxLayout.lt-md="row" fxLayoutAlign="space-around center" >       
+        <div fxFlex.lt-md="85" fxFlex.gt-sm="100">
+          <!-- <mat-form-field>
             <mat-label>By Category:</mat-label>
             <mat-select [(ngModel)]="selectedCategory" (selectionChange)="filterItems($event)">
               <mat-option value="">
@@ -17,24 +14,73 @@
                 {{f}}
               </mat-option>          
             </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>By Brand:</mat-label>
-            <mat-select [(ngModel)]="selectedBrand" (selectionChange)="filterItems($event)">
-              <mat-option value="">
-                All Brands
-              </mat-option>
-              <mat-option [value]="b" *ngFor="let b of brandList">
-                {{b}}
-              </mat-option>          
-            </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
+
+          <div>
+            <div class="row">
+              <div class="col-12 p-0 text-center">
+          
+                <span *ngFor="let item of categories">
+                  <!-- Handle branch node buttons here -->
+                  <span *ngIf="item.subs && item.subs.length > 0">
+                    <button mdbBtn type="button" color="info" mdbWavesEffect [matMenuTriggerFor]="menu.childMenu">
+                      {{item.name}}&nbsp;<i class="fas fa-chevron-down"></i>
+                    </button>
+                    <app-menu-item #menu [parent_name]="item.name" [items]="item.subs" (filterChange)="filterChanged($event)"></app-menu-item>
+                  </span>
+                  <!-- Leaf node buttons here -->
+                  <span *ngIf="!item.subs || item.subs.length === 0">
+                    <button mat-button color="primary" (click)="filter_list(item)">
+                      {{item.name}}
+                    </button>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 p-0 text-left">
+                <div fxLayout.gt-sm="column" fxLayout.lt-md="row" fxLayoutAlign="space-around center">
+                  <mat-chip-list aria-label="Filter selection" class="mb-1" ngClass.gt-sm="mat-chip-list-stacked" ngClass.lt-md="mt-1">
+                    <mat-chip (click)="removeFilter(i)" class="tag-chips" selectable="true" *ngFor="let tag of tags; let i = index"
+                              removable="true" >
+                              <span class="w-100 text-center">
+                                <i class="fas fa-times-circle"></i>&nbsp;{{tag | titlecase}}
+                              </span>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col-12">
+              <mat-form-field>
+                <mat-label>By Brand:</mat-label>
+                <mat-select [(ngModel)]="selectedBrand" (selectionChange)="filterItems($event)">
+                  <mat-option value="">
+                    All Brands
+                  </mat-option>
+                  <mat-option [value]="b" *ngFor="let b of brandList">
+                    {{b}}
+                  </mat-option>          
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </div>
+        <!-- <div fxFlex.lt-md="30" fxFlex.gt-sm="100" class="mb-2 font-75" *ngIf="selectedBrand.length > 0">
+          <button *ngIf="selectedBrand.length > 0" class="btn btn-info btn-sm" (click)="clear()"><i class="fas fa-times-circle"></i>&nbsp;Clear<span fxShow="true" fxHide.lt-md>&nbsp;Filter</span></button>
+          <mat-chip (click)="clear()" class="tag-chips" selectable="true" removable="true" >
+            <span class="w-100 text-center">
+              <i class="fas fa-times-circle"></i>&nbsp;{{selectedBrand}}
+            </span>
+          </mat-chip>
+        </div> -->
       </div>
      
      
     </div>
-    <div class="col-md-10">
+    <div class="col-md-9 mt-1">
       <div class="container">   
         <div class="row" >
           <!-- List of Products -->

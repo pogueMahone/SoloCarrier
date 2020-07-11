@@ -12,4 +12,5 @@ export class Item {
     active:boolean;
     brand: string;
     userId:string;
+    tags:string[];
   }

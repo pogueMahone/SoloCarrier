@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="product-image">
-        <div class="view hm-zoom z-depth-2" style="cursor: pointer">
+        <div class="view hm-zoom z-depth-2">
           <img [src]="item.imageUrl" [alt]="item.name" ngClass.gt-sm="item-img" ngClass.lt-md="item-img-sm" class="img-fluid rounded">
         </div>
         <div style="margin-top:15px">
@@ -44,7 +44,7 @@
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center" >
                   <div fxFlex="100" style="text-align: right;">                    
-                    <button [disabled]="selectedQuantity > item.quantity || selectedQuantity < 1" class="btn btn-success" (click)="addToCart(item)"><i class="fas fa-cart-plus"></i>&nbsp;Add<span fxShow="true" fxHide.lt-md> to Cart</span></button>
+                    <button size="sm" [disabled]="selectedQuantity > item.quantity || selectedQuantity < 1" mdbBtn type="button" color="success" (click)="addToCart(item)"><i class="fas fa-cart-plus"></i>&nbsp;Add<span fxShow="true" fxHide.lt-md> to Cart</span></button>
                   </div>
                 </div>                
               </td>
@@ -56,8 +56,8 @@
             <tr>
               <th scope="row">Brand</th>
             <!-- <td>{{item.brand}}</td> -->
-            <td>
-              <a class="btn btn-info" [routerLink]="['/catalogue']" [queryParams]="{ brand: item.brand }"><i class="far fa-list-alt"></i>&nbsp;{{item.brand}}</a>
+            <td >
+              <a size="sm" mdbBtn color="info" mdbWavesEffect  [routerLink]="brandUrl()" ><i class="far fa-list-alt"></i>&nbsp;{{item.brand}}</a>
             </td>
             </tr>
             <tr *ngIf="item.size">
@@ -73,9 +73,10 @@
               </td>
             </tr>
             <tr>
-              <th scope="row">Category</th>
-              <td>
-                <a class="btn btn-info" [routerLink]="['/catalogue']" [queryParams]="{ category: item.category }"><i class="far fa-list-alt"></i>&nbsp;{{item.category}}</a>
+              <th scope="row">Categories</th>
+               <td><!-- ngClass.lt-md="text-center"> -->
+                <!-- <a *ngFor="let tag of item.tags; let i = index" size="sm" mdbBtn color="info" mdbWavesEffect class="mr-1" [routerLink]="['/catalogue']" [queryParams]="{ keywords: tagParam(i) }"><i class="far fa-list-alt"></i>&nbsp;{{tag}}</a> -->
+                <a *ngFor="let tag of item.tags; let i = index" size="sm" mdbBtn color="info" mdbWavesEffect class="mr-1" [routerLink]="[catUrl(i)]"><i class="far fa-list-alt"></i>&nbsp;{{tag}}</a>
               </td>
             </tr>
             <tr>
@@ -109,11 +110,11 @@
                 <div fxLayout="row" fxLayoutAlign="space-between center" >
                   
                   <div fxFlex="50">
-                    <a [routerLink]="returnUrl" class="btn btn-info"><i class="fas fa-arrow-circle-left"></i>&nbsp;<span fxShow="true" fxHide.lt-md>Back</span></a>
+                    <a [href]="returnUrl" mdbBtn color="info" mdbWavesEffect><i class="fas fa-arrow-circle-left"></i>&nbsp;<span fxShow="true" fxHide.lt-md>Back</span></a>
                   </div>
                   <div fxFlex="50" style="text-align: right;">
                     
-                <button [disabled]="selectedQuantity > item.quantity || selectedQuantity < 1" class="btn btn-success" (click)="addToCart(item)"><i class="fas fa-cart-plus"></i>&nbsp;Add<span fxShow="true" fxHide.lt-md> to Cart</span></button>
+                <button [disabled]="selectedQuantity > item.quantity || selectedQuantity < 1" mdbBtn type="button" color="success" (click)="addToCart(item)"><i class="fas fa-cart-plus"></i>&nbsp;Add<span fxShow="true" fxHide.lt-md> to Cart</span></button>
                   </div>
                 </div>
                

@@ -32,6 +32,10 @@ cQ:number = 0;
     this.loading = false;
   }
 
+  replaceSpaces(n:string ){
+    return n.replace(/\s/g, '-');
+  }
+
   view() {
     this.iS.item = this.item;
     this.router.navigate(['/catalogue/item',  this.item.id ], { queryParams: { returnUrl: this.returnUrl } });

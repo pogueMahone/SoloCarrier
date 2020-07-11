@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -22,6 +21,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTreeModule} from '@angular/material/tree';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -57,6 +59,8 @@ import {environment} from '../environments/environment';
 import { SendResetComponent } from './users/send-reset/send-reset.component';
 import { ResetComponent } from './users/reset/reset.component';
 import { TermsComponent } from './terms/terms.component';
+import { ItemTagDialogComponent } from './shared/components/item-tag-dialog/item-tag-dialog.component';
+import { MenuItemComponent } from './shared/components/menu-item/menu-item.component';
 
 
 let config = new AuthServiceConfig([
@@ -89,7 +93,7 @@ export function provideConfig() {
     OrderListComponent,
     OrderComponent,
     LoaderComponent,   
-    StripeComponent, DeliveryListComponent, DeliveryComponent, MessageDialogComponent, ProfileComponent, PrivacyComponent, SendResetComponent, ResetComponent, TermsComponent   
+    StripeComponent, DeliveryListComponent, DeliveryComponent, MessageDialogComponent, ProfileComponent, PrivacyComponent, SendResetComponent, ResetComponent, TermsComponent, ItemTagDialogComponent, MenuItemComponent   
     
   ],
   imports: [
@@ -118,6 +122,9 @@ export function provideConfig() {
     MatBadgeModule,
     MatPaginatorModule,
     MatCardModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    MatTreeModule,
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,

@@ -88,13 +88,13 @@
                     <button *ngIf="order.notes" mat-icon-button color="accent" placement="top" mdbTooltip="{{order.notes}}" container="body" >
                         <i class="fas fa-info-circle"></i>
                       </button> 
-                    <button (click)="openDialog()" class="btn btn-info"><i class="fas fa-user"></i>&nbsp;Contact</button>
+                    <button (click)="openDialog()" mdbBtn type="button" color="info"><i class="fas fa-user"></i>&nbsp;Contact</button>
                 </div>
                
             </div>
          </div>
          <div class="text-left mt-3">
-            <button (click)="back()" class="btn btn-info"><i class="fas fa-arrow-circle-left"></i>&nbsp;Back to List</button>
+            <button (click)="back()" mdbBtn type="button" color="info"><i class="fas fa-arrow-circle-left"></i>&nbsp;Back to List</button>
         </div> 
     </div>
 </div>

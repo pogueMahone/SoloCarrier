@@ -1,16 +1,24 @@
 <div class="container">
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-md-2" ngStyle.gt-sm="padding-top:28px;">            
             <div class="rounded color-block blue-gradient z-depth-2 py-4 text-center white-text">
-                <h5><i class="fas fa-motorcycle"></i>&nbsp;Free Delivery within the City of Vancouver</h5>
+                <h4><i class="fas fa-motorcycle"></i>&nbsp;Free Delivery within the City of Vancouver, BC</h4>
                 <div class="font-50" *ngIf="config">* Min {{config.minOrderAmount | currency}} for delivery.</div>
               </div>
         </div>
      
         <div class="col-md-10">
             <div ngClass.lt-md="font-65" ngClass.gt-sm="font-75" class="text-center w-100 text-info">* All prices include applicable taxes and deposits.</div>
-            <h5 class="text-center mt-0 mb-1 font-weight-bold text-primary">Top Sellers</h5>           
-            <app-carousel *ngIf="favorites && favorites.length > 0" returnUrl="/" [itemList]="favorites"></app-carousel>
+            <h5 class="text-center mt-0 mb-1 font-weight-bold text-primary">Solo Carrier Top Sellers</h5>           
+            <app-carousel *ngIf="favorites && favorites.length > 0" returnUrl="/" [itemList]="favorites"></app-carousel>            
+        </div>        
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="alert alert-primary mt-4">
+                Greater Vancouver, BC delivery service.  We offer same day delivery of local craft beer, BC wines, locally roasted fair trade coffee along with many snacks to compliment.  
+                Solo Carrier does not use extra disposable packaging or containers to complete deliveries.
+            </div>
         </div>
     </div>
  </div>

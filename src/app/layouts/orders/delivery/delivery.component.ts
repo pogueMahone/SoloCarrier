@@ -5,7 +5,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 import {ToastrService} from 'src/app/shared/services/toastr.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {OrderComponent} from '../order/order.component';
-import { Observable, of, from, BehaviorSubject } from 'rxjs';
 import {ConfigService} from '../../../shared/services/config.service';
 import {MessageDialogComponent} from '../../../shared/components/message-dialog/message-dialog.component';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';

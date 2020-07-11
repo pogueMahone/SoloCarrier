@@ -1,14 +1,14 @@
 
-<h5 class="text-center mt-0 mb-1 font-weight-bold text-primary">Your Orders</h5>
+<h5 class="text-center mt-0 mb-1 font-weight-bold grey-text">Your Orders</h5>
 <div class="text-center mb-1">
     <div class="btn-group btn-group-sm">
-        <label (click)='toggle()' size="sm" mdbBtn color="light-blue" [(ngModel)]="complete" mdbRadio="0" mdbWavesEffect>
+        <label (click)='toggle()' size="sm" mdbBtn color="info" [(ngModel)]="complete" mdbRadio="0" mdbWavesEffect>
             Show All
         </label>
-        <label (click)='toggle()' size="sm" mdbBtn color="light-blue" [(ngModel)]="complete" mdbRadio="1" mdbWavesEffect>
+        <label (click)='toggle()' size="sm" mdbBtn color="info" [(ngModel)]="complete" mdbRadio="1" mdbWavesEffect>
             Scheduled
         </label>
-        <label (click)='toggle()' size="sm" mdbBtn color="light-blue" [(ngModel)]="complete" mdbRadio="2" mdbWavesEffect>
+        <label (click)='toggle()' size="sm" mdbBtn color="info" [(ngModel)]="complete" mdbRadio="2" mdbWavesEffect>
             Delivered
         </label>
         </div>
@@ -19,7 +19,7 @@
         No orders <span *ngIf="complete === '0'">found</span><span *ngIf="complete === '1'">scheduled</span><span *ngIf="complete === '2'">delivered</span> &nbsp;<i class="fas fa-frown"></i>
     </div>
     <div class="text-center mt-1">
-        <a class="btn btn-info" [routerLink]="['/catalogue']"><i class="fas fa-smile"></i>&nbsp;Catalogue</a>
+        <a mdbBtn color="info" mdbWavesEffect [routerLink]="['/catalogue']"><i class="fas fa-smile"></i>&nbsp;Catalogue</a>
     </div>
     
   </div>
@@ -77,7 +77,7 @@
                       {{order.detail.address.postcode | uppercase}}
                     </p>
                   <div class="text-center">
-                    <button (click)="view(i)" class="btn btn-primary">Order Detail</button>
+                    <button (click)="view(i)" mdbBtn type="button" color="info" mdbWavesEffect>Order Detail</button>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,41 @@
+<h5 class="mb-1 font-75 text-primary text-center" mat-dialog-title>Tag Item</h5>
+<div mat-dialog-content>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+          <button mat-icon-button disabled></button>
+          <mat-checkbox class="checklist-leaf-node"
+                        [checked]="checklistSelection.isSelected(node)"
+                        (change)="clear(); leafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+        </mat-tree-node>
+      
+        <!-- <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+          <button mat-icon-button disabled></button>
+          <mat-form-field>
+            <mat-label>New item...</mat-label>
+            <input matInput #itemValue placeholder="Ex. Lettuce">
+          </mat-form-field>
+          <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+        </mat-tree-node> -->
+      
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'toggle ' + node.filename">
+            <!-- <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon> -->
+            <i *ngIf="!treeControl.isExpanded(node)" class="fas fa-chevron-right"></i>
+            <i *ngIf="treeControl.isExpanded(node)" class="fas fa-chevron-down"></i>
+          </button>
+          <mat-checkbox  [disabled]="node.expandable"
+                         [checked]="descendantsAllSelected(node)"
+                        [indeterminate]="descendantsPartiallySelected(node)"
+                        (change)="clear(); selectionToggle(node)">{{node.item}}</mat-checkbox>
+          <!-- <button mat-icon-button (click)="addNewItem(node)"><i class="fas fa-plus"></i></button> -->
+        </mat-tree-node>
+      </mat-tree>
+      
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-evenly center">
+    <button class="btn btn-sm btn-danger mr-1" (click)="cancel()"><i class="fas fa-window-close"></i>&nbsp;Cancel</button>
+    <button class="btn btn-sm btn-success" (click)="save()"><i class="fas fa-envelope-square"></i>&nbsp;Save</button>
+  </div>

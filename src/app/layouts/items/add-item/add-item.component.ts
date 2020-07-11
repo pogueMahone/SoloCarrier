@@ -8,6 +8,8 @@ import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import {ToastrService} from '../../../shared/services/toastr.service';
+import {ItemTagDialogComponent} from '../../../shared/components/item-tag-dialog/item-tag-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-item',
@@ -22,9 +24,14 @@ export class AddItemComponent implements OnInit, OnDestroy {
   private sub:any;
   private photoUrl: string;
   private categories: any;
-  constructor(private toastr: ToastrService, private route: ActivatedRoute, private formBuilder: FormBuilder, private aS: AuthService, private iS : ItemService, private config: ConfigService) { }
+  private tags:any;
+  private isMobile:boolean = false;
+  constructor(public dialog: MatDialog, private toastr: ToastrService, private route: ActivatedRoute, private formBuilder: FormBuilder, private aS: AuthService, private iS : ItemService, private config: ConfigService) { }
 
   ngOnInit(): void {
+    this.config.isMobile.subscribe(m => {
+      this.isMobile = m;
+    });
     this.itemForm = this.formBuilder.group({
       'name': new FormControl('', Validators.required),
       'brand': new FormControl('', Validators.required),
@@ -39,7 +46,8 @@ export class AddItemComponent implements OnInit, OnDestroy {
       'isFavorite': new FormControl(false),
       'available': [null],
       'active': new FormControl(true),
-      'rating': new FormControl(3, [Validators.max(5), Validators.min(1)])
+      'rating': new FormControl(3, [Validators.max(5), Validators.min(1)]),
+      'tags': new FormControl('', Validators.required)
     });
     this.sub = this.route.queryParams.subscribe((params) => {
       this.id = params['id'] || null;
@@ -54,6 +62,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
           }
         );
       }
+    });
+
+    this.config.getCategories().subscribe(data => {      
+      this.categories = data.categories;      
     });
    
   }
@@ -72,8 +84,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
     this.itemForm.controls['isFavorite'].setValue(item.isFavorite);    
     this.itemForm.controls['active'].setValue(item.active);    
     this.itemForm.controls['rating'].setValue(item.rating);
-    this.itemForm.controls['available'].setValue(item.available);
+    this.itemForm.controls['available'].setValue(item.available);    
     this.dateAvail = item.available;    
+    this.itemForm.controls['tags'].setValue(item.tags);
+    this.tags = item.tags;
   }
 
   uploadPhoto= (files) => {
@@ -108,6 +122,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
   }
 
   save(){    
+    if(!this.tags || this.tags.length === 0){
+      this.toastr.warning('Item Tags','Please tag item');
+      return;
+    }
     if(this.itemForm.valid){      
       let item = this.itemForm.value;   
       if(this.id){
@@ -134,6 +152,22 @@ export class AddItemComponent implements OnInit, OnDestroy {
         );
       }
     }    
+  }
+
+  openDialog() {
+    this.dialog.open(ItemTagDialogComponent, {
+      data: {
+        categories: this.categories,
+        tags: this.tags
+      },
+      height: '90%',
+      width: this.isMobile ? '100%' : '40%'
+    }).afterClosed().subscribe(tags => {
+      if(tags){
+        this.tags = tags;               
+        this.itemForm.controls['tags'].setValue(this.tags);    
+      }
+    });
   }
 
   ngOnDestroy() {

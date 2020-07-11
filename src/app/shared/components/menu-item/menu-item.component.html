@@ -1,0 +1,26 @@
+  <mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+    <span *ngFor="let child of items; let i = index">
+      <!-- Handle branch node menu items -->
+      <span *ngIf="child.subs && child.subs.length > 0">
+        <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+          <i class="far fa-list-alt"></i>&nbsp;
+          <span>{{child.name}}</span>
+        </button>
+        <app-menu-item #menu [parent_name]="child.name" [items]="child.subs" (filterChange)="filterChanged($event)"></app-menu-item>
+      </span>
+      <!-- Handle leaf node menu items -->
+      <span *ngIf="(!child.subs || child.subs.length === 0) && i===0">
+        <button mat-menu-item (click)=filter(null)>
+          <!-- <i class="fas fa-minus"></i>&nbsp; -->
+          <span>All {{parent_name}}</span>
+        </button>
+      </span>
+      <span *ngIf="!child.subs || child.subs.length === 0">
+        <button mat-menu-item (click)=filter(child)>
+          <!-- <i class="fas fa-minus"></i>&nbsp; -->
+          <span>{{child.name}}</span>
+        </button>
+      </span>
+    </span>
+  </mat-menu>
+ 

@@ -8,6 +8,11 @@
           <button type="button" class="btn btn-primary btn-lg btn-block" (click)="file.click()">Upload Photo</button>
         </div>
       </div>
+      <div class="container mt-2">
+        <div class="col-12 text-center">         
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="openDialog()">Tag Item</button>
+        </div>
+      </div>
     </div>
     <form [formGroup]="itemForm" class="container" >
       
@@ -111,12 +116,13 @@
             <mat-slide-toggle color="primary" name="active" formControlName="active">Active</mat-slide-toggle>
           </span>
         </div>
-      </div>     
+      </div>  
+      <input type="hidden" name="tags" formControlName="tags">   
         <div class="row" >
           <button type="submit" class="btn btn-primary btn-lg btn-block" (click)='save()'  color="primary"> <i class="fa fa-save"></i>&nbsp;Save</button>
         </div>
         
-      </form>
+      </form>      
   </div>
 </div>
 

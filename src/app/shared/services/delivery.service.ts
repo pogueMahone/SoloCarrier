@@ -9,12 +9,15 @@ private readonly _cities:Array<KeyValuePair>;
   constructor() {
     this._cities = new Array<KeyValuePair>();    
     this._cities.push({key : 0, value :'Vancouver'});
-    this._cities.push({key : 8, value :'Burnaby'});
-    this._cities.push({key : 10, value :'Richmond'});
-    this._cities.push({key : 10, value :'New Westminster'});
-    this._cities.push({key : 10, value :'North Vancouver'});
-    this._cities.push({key : 12, value :'West Vancouver'});
-    this._cities.push({key : 14, value :'Surrey'});
+    this._cities.push({key : 5, value :'Burnaby'});
+    this._cities.push({key : 6, value :'Richmond'});
+    this._cities.push({key : 6, value :'New Westminster'});
+    this._cities.push({key : 6, value :'North Vancouver'});
+    this._cities.push({key : 7, value :'West Vancouver'});
+    this._cities.push({key : 8, value :'Surrey'});
+    this._cities.push({key : 8, value :'Port Moody'});
+    this._cities.push({key : 8, value :'Coquitlam'});
+    this._cities.push({key : 9, value :'Port Coquitlam'});
    }
 
    get cities(): Array<KeyValuePair> {

@@ -100,12 +100,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
     this.checkCartValid();
  }
 
-  // private updateCart(id: string, quantity:number){        
-  //   //this.iS.updateCartItem(id, quantity);
-  //   this.updateTotal();
-  //   const item = this.inventoryItems.find(i => i.id === id);    
-  //   //return this.iS.updateCart(item, quantity);
-  // }
+ replaceSpaces(n:string ){
+  return n.replace(/\s/g, '-');
+}
 
   updateOrder(i:number){ 
     this.cart.update(this.cartItems[i].data, this.cartItems[i].inventory, true);

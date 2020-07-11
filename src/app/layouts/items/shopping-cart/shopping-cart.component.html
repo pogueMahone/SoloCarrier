@@ -4,7 +4,7 @@
         <div class="container-fluid"> 
             <ul class="list-unstyled" *ngIf="inventoryItems && inventoryItems.length > 0">
                 <li style="margin-bottom: 10px;" class="media" *ngFor="let item of cartItems; let i = index">
-                    <a [routerLink]="['/catalogue/item/', item.id]">
+                    <a [routerLink]="['/catalogue/item/', replaceSpaces(item.data.brand), replaceSpaces(item.data.name), item.id]">
                         <img ngClass.gt-sm="cart-thumbnail" ngClass.lt-md="cart-thumbnail-sm" class="d-flex align-self-center mr-3 img-thumbnail rounded-circle hoverable" [src]="item.data.imageUrl" alt="item.data.name">
                     </a>
                   <div class="media-body item-bg" ngClass.lt-md="f-75">
